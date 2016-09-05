@@ -66,7 +66,7 @@
         </div>
         <div class="two-col">
             <form id="newsletterForm" action="">
-                <input id="inputEmailAddress" value="Email address"/>
+                <input id="inputEmailAddress" name="inputEmailAddress" value="Email address"/>
                 <br/>
                 <button type="submit" style="margin-top: 10px;">Submit!</button>
             </form>
@@ -77,5 +77,34 @@
         <h4>Check back soon...</h4>
     </div>
 </div>
+
+<script type="application/javascript" src="<c:url value="/js/jquery-3.1.0.min.js"/>"></script>
+<%--<script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>--%>
+<script type="application/javascript">
+
+    $(document).ready(function(){
+        $('#newsletterForm').on('submit', function(e){
+            var dataToSend = $(this).serialize();
+            $.ajax(
+                {
+                    url:'<c:url value="/demo"/>',
+                    method: 'POST',
+                    data: dataToSend,
+                    success: function(){
+                        alert("Thanks!");
+                    },
+                    error: function(err){
+                        alert("Noooope - an error occurred! " + err);
+                        console.dir(err);
+                    }
+                }
+            );
+            return false;
+        });
+    })
+
+
+</script>
+
 </body>
 </html>
